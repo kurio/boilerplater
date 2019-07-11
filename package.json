@@ -2,6 +2,7 @@
   "name": "@kurio/boilerplater",
   "description": "Simple tool to generate boilerplate codes for various kind of applications",
   "bin": "dist/index.js",
+  "version": "1.0.0",
   "scripts": {
     "build": "babel src -d dist && chmod +x dist/index.js",
     "release": "standard-version",
