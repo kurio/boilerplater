@@ -53,13 +53,16 @@ export default async function generateGo(dest, packageName) {
   const replacements = [
     replace({
       files: path.join(dirPath, "**", "*.go"),
-      from: [/github\.com\/kurio\/boilerplate-go/, /goboilerplate/],
-      to: [pkgName.toLowerCase(), appName]
+      from: [
+        new RegExp(/github\.com\/kurio\/boilerplate-go/, "gi"),
+        new RegExp(/goboilerplate/, "gi")
+      ],
+      to: [pkgName, appName]
     }),
     replace({
       files: path.join(dirPath, "go.mod"),
       from: /github\.com\/kurio\/boilerplate-go/,
-      to: pkgName.toLowerCase()
+      to: pkgName
     }),
     replace({
       files: path.join(dirPath, "README.md"),
