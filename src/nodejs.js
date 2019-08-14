@@ -58,7 +58,7 @@ export async function generateNodeServer(dest, packageName) {
   );
 }
 
-export async function generateNodeCli(repoName, dest, packageName) {
+export async function generateNodeCli(dest, packageName) {
   return generateCode(
     dest,
     packageName,
