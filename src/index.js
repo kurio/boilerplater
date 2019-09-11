@@ -5,6 +5,7 @@ import generateGo from "./go";
 
 cmd
   .command("node-server <dest>")
+  .description("generate Node.js web server app")
   .option("--packageName [name]")
   .action(async (dest, opt) => {
     const { packageName } = opt;
@@ -14,6 +15,7 @@ cmd
 
 cmd
   .command("node-cli <dest>")
+  .description("generate Node.js CLI app")
   .option("--packageName [name]")
   .action(async (dest, opt) => {
     const { packageName } = opt;
@@ -23,11 +25,17 @@ cmd
 
 cmd
   .command("go <dest>")
+  .description("generate Go app")
   .option("--packageName [name]")
   .action(async (dest, opt) => {
     const { packageName } = opt;
 
     await generateGo(dest, packageName);
   });
+
+if (!process.argv.slice(2).length) {
+  cmd.outputHelp();
+  process.exit(1);
+}
 
 cmd.parse(process.argv);

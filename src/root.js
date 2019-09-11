@@ -17,9 +17,4 @@ cmd.on("option:verbose", () => {
   logger.level = "silly";
 });
 
-if (!process.argv.slice(2).length) {
-  cmd.outputHelp();
-  process.exit(1);
-}
-
 export default cmd;
