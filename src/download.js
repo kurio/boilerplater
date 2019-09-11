@@ -6,8 +6,12 @@ import fsExtra from "fs-extra";
 import unzipper from "unzipper";
 import logger from "winston";
 
-export default async function downloadTemplate(repoName, dirPath) {
-  const zipUrl = `https://github.com/kurio/${repoName}/archive/master.zip`;
+export default async function downloadTemplate(
+  repoName,
+  dirPath,
+  commit = "master"
+) {
+  const zipUrl = `https://github.com/kurio/${repoName}/archive/${commit}.zip`;
   const tmpDir = mkdtempSync(tmpdir());
 
   logger.debug(`Downloading ${zipUrl} into ${tmpDir}`);
@@ -20,7 +24,7 @@ export default async function downloadTemplate(repoName, dirPath) {
 
   await response.data.pipe(unzipper.Extract({ path: tmpDir })).promise();
 
-  const repoDir = path.join(tmpDir, `${repoName}-master`);
+  const repoDir = path.join(tmpDir, `${repoName}-${commit}`);
 
   logger.debug(`Renaming ${repoDir} to ${dirPath}`);
   await fsExtra.move(repoDir, dirPath);

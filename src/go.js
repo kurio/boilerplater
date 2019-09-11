@@ -6,6 +6,7 @@ import { prompt } from "enquirer";
 import replace from "replace-in-file";
 import logger from "winston";
 import downloadTemplate from "./download";
+import { boilerplateGoCommit } from "./const";
 
 export default async function generateGo(dest, packageName) {
   let pkgName = packageName;
@@ -42,7 +43,7 @@ export default async function generateGo(dest, packageName) {
   const dirPath = path.join("./", dest);
 
   try {
-    await downloadTemplate("boilerplate-go", dirPath);
+    await downloadTemplate("boilerplate-go", dirPath, boilerplateGoCommit);
   } catch (e) {
     logger.error(`Cannot download template: ${e}`);
   }
@@ -75,7 +76,7 @@ export default async function generateGo(dest, packageName) {
 
   const rename = promisify(fs.rename);
   await rename(
-    path.join(dirPath, "cmd", "app"),
+    path.join(dirPath, "cmd", "goboilerplate"),
     path.join(dirPath, "cmd", appName)
   );
 }

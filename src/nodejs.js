@@ -4,8 +4,12 @@ import replace from "replace-in-file";
 import validatePackage from "validate-npm-package-name";
 import logger from "winston";
 import downloadTemplate from "./download";
+import {
+  boilerplateNodejsCLICommit,
+  boilerplateNodejsServerCommit
+} from "./const";
 
-async function generateCode(dest, packageName, repoName, defaultAppName) {
+async function generateCode(dest, packageName, repoName) {
   let pkgName = packageName;
   if (!pkgName) {
     const input = await prompt({
@@ -24,8 +28,26 @@ async function generateCode(dest, packageName, repoName, defaultAppName) {
 
   const dirPath = path.join("./", dest);
 
+  let defaultAppName;
+  let repoCommit;
+
+  switch (repoName) {
+    case "boilerplate-server-nodejs":
+      defaultAppName = "node\\.js server";
+      repoCommit = boilerplateNodejsServerCommit;
+      break;
+
+    case "boilerplate-cli-nodejs":
+      defaultAppName = "node\\.js cli";
+      repoCommit = boilerplateNodejsCLICommit;
+      break;
+
+    default:
+      throw new Error(`invalid repo name: ${repoName}`);
+  }
+
   try {
-    await downloadTemplate(repoName, dirPath);
+    await downloadTemplate(repoName, dirPath, repoCommit);
   } catch (e) {
     logger.error(`Cannot download template: ${e}`);
   }
@@ -50,19 +72,9 @@ async function generateCode(dest, packageName, repoName, defaultAppName) {
 }
 
 export async function generateNodeServer(dest, packageName) {
-  return generateCode(
-    dest,
-    packageName,
-    "boilerplate-server-nodejs",
-    "node\\.js server"
-  );
+  return generateCode(dest, packageName, "boilerplate-server-nodejs");
 }
 
 export async function generateNodeCli(dest, packageName) {
-  return generateCode(
-    dest,
-    packageName,
-    "boilerplate-cli-nodejs",
-    "node\\.js cli"
-  );
+  return generateCode(dest, packageName, "boilerplate-cli-nodejs");
 }
