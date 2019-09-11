@@ -67,8 +67,20 @@ export default async function generateGo(dest, packageName) {
     }),
     replace({
       files: path.join(dirPath, "README.md"),
-      from: new RegExp(/Go App/, "gi"),
-      to: appName
+      from: [
+        new RegExp(/github\.com\/kurio\/boilerplate-go/, "gi"),
+        new RegExp(/Go App/, "gi"),
+        new RegExp(/boilerplate-go/, "gi")
+      ],
+      to: [pkgName, appName, appName]
+    }),
+    replace({
+      files: path.join(dirPath, "Makefile"),
+      from: [
+        new RegExp(/goboilerplate/, "gi"),
+        new RegExp(/github\.com\/kurio\/boilerplate-go/, "gi")
+      ],
+      to: [appName, pkgName]
     })
   ];
 
