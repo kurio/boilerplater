@@ -31,3 +31,14 @@ Packages used:
 - [Jest](https://jestjs.io/) for test runner
 - [ESLint](https://eslint.org/) & [Prettier](https://prettier.io/) for linters
 - [Husky](https://github.com/typicode/husky) for git hooks
+
+### Go App
+
+`boilerplater go <dir>`
+
+This will generate codes for Go app with HTTP server & CLI handler using this template: https://github.com/kurio/boilerplate-go.
+
+Packages used:
+- [Echo](https://github.com/labstack/echo) as HTTP server
+- [Cobra](https://github.com/spf13/cobra) as CLI handler
+- [Testify](github.com/stretchr/testify) for testing helper
