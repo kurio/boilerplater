@@ -35,6 +35,6 @@
     "husky": "^3.0.0",
     "jest": "^24.8.0",
     "prettier": "^1.16.4",
-    "standard-version": "^6.0.1"
+    "standard-version": "^8.0.1"
   }
 }
